@@ -66,10 +66,10 @@ const Avatardiv = styled.div`
         color:orange;
     }
     @media screen and (max-width:720px){
-        border-radius:10px;
+        border-radius:25px;
         margin-right:10px;
-        width:80px;
-        padding:20px;
+        width:45px;
+        padding:5px;
     }
 `;
 
