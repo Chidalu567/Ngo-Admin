@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import navimage from "../images/StripeBranding.jpg";
+import { Drawer } from 'antd';
 
 
 const Header = () => {
+
+    // implement a state to hold the state of the Drawer
+    const [isOpen, setIsOpen] = useState(false);
+
+    // function to handle click event from button
+    const handleClick = () => {
+        setIsOpen(true);
+    }
+
+    // function to handle Close event from Drawer
+    const handleClose = () => {
+        setIsOpen(false);
+    }
+
     return (
         <Navbar>
             <Logo>
@@ -18,8 +33,15 @@ const Header = () => {
                 <li>Profile</li>
             </Navlist>
             <Avatardiv>
-                <h3>C O</h3>
+                <Button onClick={handleClick}>C O</Button>
             </Avatardiv>
+            <Drawer placement={'bottom'} key={'bottom'} onClose={handleClose} open={isOpen}>
+                <h3>AddPhoto</h3>
+                <h3>Users</h3>
+                <h3>Tracker</h3>
+                <h3>EventUpdate</h3>
+                <h3>Profile</h3>
+            </Drawer>
         </Navbar>
     )
 }
@@ -79,3 +101,5 @@ const Logo = styled.div`
         margin-left:30px;
     }
 `;
+
+const Button = styled.button``;
