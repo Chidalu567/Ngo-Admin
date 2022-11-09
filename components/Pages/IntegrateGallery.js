@@ -15,7 +15,7 @@ const PhotoSection = () => {
                 </FormItem>
                 <FormItem>
                     <Label htmlFor="upload">Upload:</Label>
-                    <Button type="button">+</Button>
+                    <Upload type="file" name="file"/>
                 </FormItem>
             </Form>
         </Container>
@@ -30,22 +30,66 @@ const Container = styled.div`
 `;
 
 const Form = styled.form`
-    width: 1254px;
+    width: 700px;
     height:624px;
     margin:auto;
     margin-top:100px;
-    background-color:blue;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
+    padding-left:10px;
+    padding-right:10px;
+    @media screen and (max-width:720px) {
+        width:100%;
+    }
 `;
 
-const Input = styled.input``;
+const Input = styled.input`
+    width:80%;
+    height: 40px;
+    background-color:#262F36;
+    color:white;
+    font-family:Inter;
+    font-size:16px;
+    font-weight:normal;
+    padding-left:10px;
+    border: 1px solid transparent;
+    border-radius:5px;
+    margin-bottom:10px;
+    @media screen and (max-width:720px){
+        width:100%;
+    }
+`;
 
-const TextArea = styled.textarea``;
+const TextArea = styled.textarea`
+    width:80%;
+    background-color:#262F36;
+    color:white;
+    font-family:Inter;
+    font-size:16px;
+    font-weight:normal;
+    @media screen and (max-width:720px){
+        width:100%;
+    }
+`;
+const Label = styled.label`
+    color:orange;
+    font-family:Inter;
+    font-size:20px;
+    font-weight:bold;
+`;
 
-const Label = styled.label``;
+const FormItem = styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    @media screen and (max-width:720px){
+        flex-direction:column;
+        margin-left:10px;
+        margin-right:10px;
+    }
+`;
 
-const FormItem = styled.div``;
-
-const Button = styled.div``;
+const Upload = styled.input`
+    margin-bottom:50px;
+`;

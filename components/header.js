@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import navimage from "../images/StripeBranding.jpg";
 
+
 const Header = () => {
     return (
         <Navbar>
@@ -49,6 +50,9 @@ const Navlist = styled.ul`
         font-weight:bold;
 
     }
+    @media screen and (max-width:820px){
+        display:none;
+    }
 `;
 
 const Avatardiv = styled.div`
@@ -61,8 +65,17 @@ const Avatardiv = styled.div`
     & > h3 {
         color:orange;
     }
+    @media screen and (max-width:720px){
+        border-radius:10px;
+        margin-right:10px;
+        width:80px;
+        padding:20px;
+    }
 `;
 
 const Logo = styled.div`
     margin-left:80px;
+    @media screen and (max-width:720px){
+        margin-left:30px;
+    }
 `;
