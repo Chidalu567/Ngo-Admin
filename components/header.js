@@ -23,7 +23,7 @@ const Header = () => {
     return (
         <Navbar>
             <Logo>
-            <Image src={navimage} alt="SirPhilipLogo" className="logo"/>
+                <Image src={navimage} alt="SirPhilipLogo" className="logo" priority/>
             </Logo>
             <Navlist>
                 <li>AddPhoto</li>
@@ -77,23 +77,7 @@ const Navlist = styled.ul`
     }
 `;
 
-const Avatardiv = styled.div`
-    background-color:white;
-    text-align:center;
-    width:100px;
-    padding:30px;
-    margin-right:5em;
-    border-radius:40px;
-    & > h3 {
-        color:orange;
-    }
-    @media screen and (max-width:720px){
-        border-radius:25px;
-        margin-right:10px;
-        width:45px;
-        padding:5px;
-    }
-`;
+
 
 const Logo = styled.div`
     margin-left:80px;
@@ -102,4 +86,13 @@ const Logo = styled.div`
     }
 `;
 
-const Button = styled.button``;
+const Button = styled.button`
+    background-color:white;
+    padding:20px;
+    border-radius:30px;
+    color: orange;
+`;
+
+const Avatardiv = styled.div`
+    margin-right:20px;
+`;
