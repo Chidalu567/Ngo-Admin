@@ -8,7 +8,7 @@ const Footer = () => {
     return (
         <Container>
             <ImageContainer>
-                <Image src={logo} className="flogo"/>
+                <Image src={logo} className="flogo" alt="footer logo" priority/>
             </ImageContainer>
             <Contact></Contact>
         </Container>
