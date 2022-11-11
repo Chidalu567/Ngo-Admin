@@ -1,6 +1,8 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
 import { notification } from 'antd';
+import Image from 'next/image';
+import axios from 'axios';
 
 const PhotoSection = () => {
 
@@ -16,15 +18,26 @@ const PhotoSection = () => {
 
     // function -> stores the value of file uploaded into the state gallery
     function handleFiles(e) {
-        const key = e.target.name;
-        const value = e.target.files[0];
-        setGallery({ ...gallery, [key]: value });
+        const file = e.target.files[0]; // file uploaded
+        // call the preview function to update the gallery state with the file in base64 format
+        previewFile(file);
+    }
+
+    // function -> reads file and previews file contents
+    const previewFile = (file) => {
+        const filename = file.name; // filename for public_id of cloudinary
+        const reader = new FileReader(); // create a reader instance
+        reader.readAsDataURL(file); // call the readAsDataUrl method
+        reader.onloadend = () => {
+            setGallery({ ...gallery, file: reader.result});
+        }
     }
 
     // function to handle submit
-    function handleSubmit() {
+    const handleSubmit = async()=>{
         if (gallery.date && gallery.title && gallery.description && gallery.file != null) {
-            console.log(gallery);
+            const response = await axios({ method: 'POST', url:'http://localhost:5000/api/admin/gallery',data:{...gallery}}); // make a post request to backend API
+            setGallery({});
         } else {
             notification['error']({
                 message: 'Incomplete Form',
@@ -53,6 +66,7 @@ const PhotoSection = () => {
                 <FormItem>
                     <Label htmlFor="upload">Upload:</Label>
                     <Upload type="file" name="file" required onChange={handleFiles} />
+                    {gallery.file && <Image src={gallery.file} priority width="100" height="100" alt="uploaded image"/>}
                 </FormItem>
                 <Submitbutton type="button" onClick={handleSubmit}>Create</Submitbutton>
             </Form>
@@ -143,4 +157,7 @@ const Submitbutton = styled.button`
     font-weight:bold;
     font-family:Inter;
     border-radius:20px;
+    &:hover{
+        box-shadow: 2px 3px 10px black, 4px 6px 20px orange;
+    }
 `;
