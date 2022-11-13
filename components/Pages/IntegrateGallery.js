@@ -36,7 +36,7 @@ const PhotoSection = () => {
     // function to handle submit
     const handleSubmit = async()=>{
         if (gallery.date && gallery.title && gallery.description && gallery.file != null) {
-            const response = await axios({ method: 'POST', url:'http://localhost:5000/api/admin/gallery',data:{...gallery}}); // make a post request to backend API
+            const response = await axios({ method: 'POST', url:'https://sporg.herokuapp.com/api/admin/gallery',data:{...gallery}}); // make a post request to backend API
             setGallery({});
         } else {
             notification['error']({
