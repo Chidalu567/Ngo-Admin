@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styled from 'styled-components';
+import Link from 'next/link';
 import { Layout } from '../components/SignUp/layout.js';
 import { Checkout } from '../components/SignUp/components/checkout.js';
 
@@ -11,32 +12,37 @@ const Home = () => {
       <Form>
         <FormItem>
           <Label htmlFor="firstname">Firstname:</Label>
-          <Input type="text" id="firstname" name="firstname" />
+          <Input type="text" id="firstname" name="firstname" required="true"/>
         </FormItem>
 
         <FormItem>
           <Label htmlFor="lastname">Lastname:</Label>
-          <Input type="text" id="lastname" name="lastname" />
+          <Input type="text" id="lastname" name="lastname" required="true"/>
         </FormItem>
 
         <FormItem>
           <Label htmlFor="email">Email:</Label>
-          <Input type="email" id="email" name="email"/>
+          <Input type="email" id="email" name="email" required="true"/>
         </FormItem>
 
         <FormItem>
           <Label htmlFor="date">DateOfBirth:</Label>
-          <Input type="date" name="date" id="date"/>
+          <Input type="date" name="date" id="date" required="true"/>
         </FormItem>
 
         <FormItem>
           <Label htmlFor="password">Password:</Label>
-          <Input type="text" id="password" name="password"/>
+          <Input type="text" id="password" name="password" required="true"/>
         </FormItem>
 
         <FormItem>
           <Label htmlFor="file">Profile Photo:</Label>
-          <Upload type="file" name="file" id="file"/>
+          <Upload type="file" name="file" id="file" required="true"/>
+        </FormItem>
+
+        <FormItem>
+          <Label htmlFor="login">Already a User?</Label>
+          <Link href="/admin_login">Login</Link>
         </FormItem>
 
         <Submit type="button">Submit</Submit>
@@ -91,6 +97,7 @@ const Label = styled.label`
 `;
 
 const Upload = styled.input``;
+
 
 const Submit = styled.button`
   width:50%;
