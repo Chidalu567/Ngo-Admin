@@ -14,7 +14,7 @@ const Navbar = styled.nav`
 export const Header = () => {
     return (
         <Navbar>
-            <Image src={navimage} priority="true" alt="brandlogo"  style={{width:"130px",height:"110px",margin:'10px',objectFit:'contain'}}/>
+            <Image src={navimage} priority alt="brandlogo"  style={{width:"130px",height:"110px",margin:'10px',objectFit:'contain'}}/>
         </Navbar>
     )
 }

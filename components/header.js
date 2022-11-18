@@ -1,14 +1,17 @@
-import React, { useState }  from 'react';
+import React, { useState,useEffect}  from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import Link from 'next/link';
 import navimage from "../images/StripeBranding.jpg";
 import { Drawer } from 'antd';
+
 
 
 const Header = () => {
 
     // implement a state to hold the state of the Drawer
     const [isOpen, setIsOpen] = useState(false);
+    const [person, setPerson] = useState({firstInitial:'',lastInitial:''});
 
     // function to handle click event from button
     const handleClick = () => {
@@ -19,6 +22,13 @@ const Header = () => {
     const handleClose = () => {
         setIsOpen(false);
     }
+
+    // useEffect hook to run code on intial render of page
+    useEffect(() => {
+        const first = localStorage.getItem('staffname').split(',')[0].charAt(0);
+        const last = localStorage.getItem('staffname').split(',')[1].charAt(0);
+        setPerson({...person,firstInitial:first,lastInitial:last})
+    },[])
 
     return (
         <Navbar>
@@ -33,7 +43,7 @@ const Header = () => {
                 <li>Profile</li>
             </Navlist>
             <Avatardiv>
-                <Button onClick={handleClick}>C O</Button>
+                <Button onClick={handleClick}>{person.firstInitial + " " + person.lastInitial}</Button>
             </Avatardiv>
             <Drawer placement={'bottom'} key={'bottom'} onClose={handleClose} open={isOpen}>
                 <h3>AddPhoto</h3>
@@ -41,6 +51,7 @@ const Header = () => {
                 <h3>Tracker</h3>
                 <h3>EventUpdate</h3>
                 <h3>Profile</h3>
+                <h3><Link href='/admin_login'>Login into another account</Link></h3>
             </Drawer>
         </Navbar>
     )

@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { notification } from 'antd';
 import Image from 'next/image';
 import axios from 'axios';
+import { Localhost, Production } from '../../utils/baselink';
 
 const PhotoSection = () => {
 
     // useState definition -> This holds values entered in the Form ( input, textarea and file)
     const [gallery, setGallery] = useState({title:'',description:'',file:'',date:''});
+
 
     // function to handle change event in element
     function handleChange(e) {
@@ -36,7 +38,12 @@ const PhotoSection = () => {
     // function to handle submit
     const handleSubmit = async()=>{
         if (gallery.date && gallery.title && gallery.description && gallery.file != null) {
-            const response = await axios({ method: 'POST', url:'https://sporg.herokuapp.com/api/admin/gallery',data:{...gallery}}); // make a post request to backend API
+            const response = await axios({ method: 'POST', url:'https://sporg.herokuapp.com/api/admin/gallery',data:{...gallery},headers:{'Authorization':localStorage.getItem('token')}}); // make a post request to backend API
+            notification['info']({
+                message: 'Gallery Item',
+                description: 'Hurray, Item updated in gallery section already',
+                duration:3.5,
+            })
             setGallery({ title: '', description: '', date: '', file: '' });
         } else {
             notification['error']({
@@ -53,15 +60,15 @@ const PhotoSection = () => {
             <Form>
                 <FormItem>
                     <Label htmlFor="title">Title:</Label>
-                    <Input type="text" id="title" name="title" onChange={handleChange} required/>
+                    <Input type="text" id="title" name="title" onChange={handleChange} required value={gallery.title} />
                 </FormItem>
                 <FormItem>
                     <Label htmlFor="description">Description:</Label>
-                    <TextArea name="description" id="description" onChange={handleChange} required/>
+                    <TextArea name="description" id="description" onChange={handleChange} required value={gallery.description} />
                 </FormItem>
                 <FormItem>
                     <Label htmlFor="date">Date:</Label>
-                    <Input type="date" id="date" name="date" required onChange={handleChange}/>
+                    <Input type="date" id="date" name="date" required onChange={handleChange} value={gallery.date} />
                 </FormItem>
                 <FormItem>
                     <Label htmlFor="upload">Upload:</Label>
