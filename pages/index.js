@@ -42,7 +42,7 @@ const Home = () => {
         notification['info']({
           message: 'Success, Login',
           description: `${response.data.msg}`,
-          duration: 4.5,
+          duration: 3.5,
         });
       }
       setPerson({ firstname: '', lastname: '', email: '', password: '', date_of_birth: '' });
@@ -51,7 +51,7 @@ const Home = () => {
       notification['error']({
         message: 'Incomplete Form',
         description: "One of the form field is empty please kindly fill it in. All info is stored in database for staff registration.",
-        duration:4.5,
+        duration:3.5,
       })
     }
   }

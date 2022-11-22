@@ -33,7 +33,7 @@ const Login = () => {
                 localStorage.setItem('staffname', response.data.person);
                 setInterval(() => {
                     window.location.href = '/admin';
-                },4000)
+                },3000)
 
             }
 
