@@ -2,50 +2,96 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styled from 'styled-components';
 import Link from 'next/link';
+import {notification} from 'antd'
+import axios from 'axios';
+import { useState } from 'react';
 import { Layout } from '../components/SignUp/layout.js';
 import { Checkout } from '../components/SignUp/components/checkout.js';
 
 const Home = () => {
+  // state to hold user information to be sent to server
+  const [person, setPerson] = useState({ firstname: '', lastname: '', email: '', date_of_birth: '', password: '' });
+
+  // function to handle change
+  const handleChange = (e) => {
+    const key = e.target.name;
+    const value = e.target.value;
+    setPerson({ ...person, [key]: value });
+  }
+
+  // function to handle file change
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+  }
+
+  // function to handle preview file
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPerson({ ...person, file: reader.result });
+    }
+  }
+
+  // function to handle submit event{
+  const handleSubmit = async () => {
+    if (person.firstname && person.lastname && person.email && person.date_of_birth && person.password!=null) {
+      const response = await axios({ method: 'POST', url: "https://sporg.herokuapp.com/api/v1/signup", data: { ...person } });
+      if (response.data.msg) {
+        notification['info']({
+          message: 'Success, Login',
+          description: `${response.data.msg}`,
+          duration: 4.5,
+        });
+      }
+      setPerson({ firstname: '', lastname: '', email: '', password: '', date_of_birth: '' });
+      window.location.href = "/admin_login";
+    } else {
+      notification['error']({
+        message: 'Incomplete Form',
+        description: "One of the form field is empty please kindly fill it in. All info is stored in database for staff registration.",
+        duration:4.5,
+      })
+    }
+  }
+
   return (
     <Container>
       <Checkout status={{step1:'process'}} />
       <Form>
         <FormItem>
           <Label htmlFor="firstname">Firstname:</Label>
-          <Input type="text" id="firstname" name="firstname" required="true"/>
+          <Input type="text" id="firstname" name="firstname" required={true} onChange={handleChange} value={person.firstname} />
         </FormItem>
 
         <FormItem>
           <Label htmlFor="lastname">Lastname:</Label>
-          <Input type="text" id="lastname" name="lastname" required="true"/>
+          <Input type="text" id="lastname" name="lastname" required={true} onChange={handleChange} value={ person.lastname} />
         </FormItem>
 
         <FormItem>
           <Label htmlFor="email">Email:</Label>
-          <Input type="email" id="email" name="email" required="true"/>
+          <Input type="email" id="email" name="email" required={true} onChange={handleChange} value={person.email} />
         </FormItem>
 
         <FormItem>
           <Label htmlFor="date">DateOfBirth:</Label>
-          <Input type="date" name="date" id="date" required="true"/>
+          <Input type="date" name="date_of_birth" id="date" required={true} onChange={handleChange} value={person.date_of_birth} />
         </FormItem>
 
         <FormItem>
           <Label htmlFor="password">Password:</Label>
-          <Input type="text" id="password" name="password" required="true"/>
+          <Input type="password" id="password" name="password" required={true} onChange={handleChange} value={person.password} />
         </FormItem>
 
         <FormItem>
-          <Label htmlFor="file">Profile Photo:</Label>
-          <Upload type="file" name="file" id="file" required="true"/>
+          <Label htm
+            lFor="login">Already a User?</Label>
+          <Link href="/admin_login">Signin</Link>
         </FormItem>
 
-        <FormItem>
-          <Label htmlFor="login">Already a User?</Label>
-          <Link href="/admin_login">Login</Link>
-        </FormItem>
-
-        <Submit type="button">Submit</Submit>
+        <Submit type="button" onClick={handleSubmit}>Submit</Submit>
       </Form>
     </Container>
   )
